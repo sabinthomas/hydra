@@ -104,19 +104,19 @@ def _apply_op(op, source_collection, dest_collection, stats):
         except DuplicateKeyError:
             stats.insert_warnings += 1
     elif op['op'] == 'd':
-        # delete
-        result = dest_collection.remove({'_id': _id})
-        if result:
-            if result['n'] == 1:
+        # delete     
+        #result = dest_collection.remove({'_id': _id})
+        #if result:
+            #if result['n'] == 1:
                 # success
                 stats.deletes += 1
-            else:
+            #else:
                 # we're deleting by _id, so we should have deleted exactly one document;
                 # anything else is a warning
                 #log.debug("warn delete _id = %s; result = %r", base64.b64encode(_id), result)
-                stats.delete_warnings += 1
-                if result.get('err', None):
-                    log.error("error while deleting: %r" % op['err'])
+                #stats.delete_warnings += 1
+                #if result.get('err', None):
+                    #log.error("error while deleting: %r" % op['err'])
     elif op['op'] == 'u':
         # update. which involves re-reading the document from the source and updating the
         # destination with the updated contents
